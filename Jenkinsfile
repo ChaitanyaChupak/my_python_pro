@@ -8,8 +8,8 @@ pipeline {
     stages {
         stage('Checkout') {
         steps {
-                dir('/home/chaitanyachupak/Desktop/Jenkins/my_python_project') {
-                git branch: 'main', url: 'file:///home/chaitanyachupak/Desktop/Jenkins/my_python_project'
+                dir('/home/chaitanyachupak/Desktop/Jenkins/my_python_pro') {
+                git branch: 'main', url: 'file:///home/chaitanyachupak/Desktop/Jenkins/my_python_pro'
                     }
             }
         }
