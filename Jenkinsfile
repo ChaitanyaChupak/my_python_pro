@@ -7,18 +7,19 @@ pipeline {
    
     stages {
         stage('Checkout') {
-            steps {
-                git branch: 'main', 
-                    url: 'git@github.com:ChaitanyaChupak/my_python_pro.git', 
-                    credentialsId: 'your-ssh-key-id'
+        steps {
+                
+                git branch: 'main', url: 'https://github.com/ChaitanyaChupak/my_python_pro'
+                    
             }
         }
 
+       
         stage('Setup Python Environment') {
             steps {
-                sh '''#!/bin/bash
+                sh '''
                     python3 -m venv venv
-                    source venv/bin/activate
+                    . venv/bin/activate
                     pip install --upgrade pip build pytest
                 '''
             }
@@ -26,8 +27,8 @@ pipeline {
 
         stage('Build Wheel') {
             steps {
-                sh '''#!/bin/bash
-                    source venv/bin/activate
+                sh '''
+                    . venv/bin/activate
                     python -m build --wheel
                 '''
             }
@@ -35,8 +36,8 @@ pipeline {
        
         stage('Test') {
             steps {
-                sh '''#!/bin/bash
-                    source venv/bin/activate
+                sh '''
+                    . venv/bin/activate
                     pytest tests/
                 '''
             }
@@ -50,7 +51,7 @@ pipeline {
        
         stage('Deploy') {
             steps {
-                sh '''#!/bin/bash
+                sh '''
                     # Stop and remove the existing container if running
                     docker ps -q --filter "name=my-python-container" | grep -q . && docker stop my-python-container && docker rm my-python-container || true
                     
